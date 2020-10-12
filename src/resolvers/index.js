@@ -3,7 +3,8 @@ const { Mutation } = require('./mutationResolvers');
 const { Address } = require('./addressResolvers');
 const { School } = require('./schoolResolvers');
 const { Course } = require('./courseResolvers');
-const { Student } = require('./studentResolvers')
+const { Student } = require('./studentResolvers');
+const { Teacher } = require('./teacherResolvers');
 
 module.exports = {
   Query,
@@ -12,4 +13,5 @@ module.exports = {
   School,
   Course,
   Student,
+  Teacher,
 };

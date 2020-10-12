@@ -27,8 +27,8 @@ model Teacher {
   password String
   firstName String
   lastName String
-  school School @relation(fields: [schoolId], references: [id])
-  schoolId Int
+  school School? @relation(fields: [schoolId], references: [id])
+  schoolId Int?
   coursesTeaching Course[]
 }
 

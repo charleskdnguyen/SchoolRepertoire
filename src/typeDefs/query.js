@@ -25,6 +25,12 @@ const Query = gql`
     ): Course!
     
     getCourses: [Course!]!
+    
+    getTeacher(
+      id: Int!
+    ): Teacher
+    
+    getTeachers: [Teacher!]!
   }
 `
 
