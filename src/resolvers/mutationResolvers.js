@@ -82,6 +82,50 @@ const Mutation = {
         zip: args.zip === zip ? zip : args.zip
       }
     })
+  },
+  addStudent: async (_, args, context, info) =>
+    await context.prisma.student.create({
+      data: {
+        email: args.email,
+        password: args.password,
+        firstName: args.firstName,
+        lastName: args.lastName,
+        school: {
+          connect: {
+            id: args.schoolid,
+          }
+        },
+        classesEnrolled: args.classesEnrolled ? args.classesEnrolled : [],
+      }
+    }),
+  deleteStudent: async (_, args, context, info) =>
+    await context.prisma.student.delete({
+      where: {
+        id: args.id,
+      }
+    }),
+  updateStudent: async (_, args, context, info) => {
+    const student = await context.prisma.student.findOne({
+      where: {
+        id: args.id,
+      }
+    });
+
+    if (!student) throw new Error(`Student with id ${args.id} is invalid.`);
+
+    return await context.prisma.student.update({
+      where: {
+        id: args.id,
+      },
+      data: {
+        email: args.email === email ? email : args.email,
+        password: args.password === password ? password : args.password,
+        firstName: args.firstName === firstName ? firstName : args.firstName,
+        lastName: args.lastName === lastName ? lastName : args.lastName,
+        school: args.school === school ? school : args.school,
+        classesEnrolled: args.classesEnrolled === classesEnrolled ? classesEnrolled : args.classesEnrolled,
+      }
+    })
   }
 }
 
