@@ -36,6 +36,22 @@ const Mutation = gql`
       street: String!
       zip: String!
     ): Address!
+    
+    addClass(
+      courseCode: String!
+      name: String!
+      schoolid: Int!
+    ): Class!
+    
+    deleteClass(
+      id: Int!
+    ): Class!
+    
+    updateClass(
+      id: Int!
+      courseCode: String
+      name: String
+    ): Class!
   }
 `
 

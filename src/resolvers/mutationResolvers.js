@@ -81,6 +81,43 @@ const Mutation = {
         street: args.street === street ? street : args.street,
         zip: args.zip === zip ? zip : args.zip
       }
+    });
+  },
+  addClass: async (_, args, context, info) =>
+    await context.prisma.class.create({
+      data: {
+        courseCode: args.courseCode,
+        name: args.name,
+        school: {
+          connect: {
+            id: args.schoolid,
+          }
+        }
+      }
+    }),
+  deleteClass: async (_, args, context, info) =>
+    await context.prisma.class.delete({
+      where: {
+        id: args.id,
+      }
+    }),
+  updateClass: async (_, args, context, info) => {
+    const foundClass = await context.prisma.class.findOne({
+      where: {
+        id: args.id,
+      }
+    });
+    console.log(foundClass);
+    if (!foundClass) throw new Error(`Class with id ${args.id} is invalid.`);
+
+    return await context.prisma.class.update({
+      where: {
+        id: args.id,
+      },
+      data: {
+        courseCode: args.courseCode,
+        name: args.name,
+      }
     })
   }
 }
