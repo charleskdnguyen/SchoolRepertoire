@@ -1,11 +1,12 @@
 const { gql } = require('apollo-server-express');
 
-const typeDefs = gql`
+const query = gql`
   type Query {
     hello: String!
+    goodbye: String!
   }
 `
 
 module.exports = {
-  typeDefs,
+  query,
 }
