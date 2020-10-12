@@ -38,6 +38,29 @@ const Mutation = gql`
       zip: String
     ): Address!
     
+    addStudent(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+      schoolid: Int!
+      coursesEnrolled: [Int!]
+    ): Student!
+    
+    deleteStudent(
+      id: Int!
+    ): Student!
+    
+    updateStudent(
+      id: Int!
+      email: String
+      password: String
+      firstName: String
+      lastName: String
+      schoolid: Int
+      coursesEnrolled: [Int!]
+    ): Student!
+    
     addCourse(
       courseCode: String!
       name: String!

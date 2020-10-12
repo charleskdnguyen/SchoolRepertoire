@@ -119,6 +119,71 @@ const Mutation = {
         name: args.name,
       }
     })
+  },
+  addStudent: async (_, args, context, info) => {
+    let courseIds = [];
+    if (args.coursesEnrolled)
+      courseIds = await args.coursesEnrolled.map(courseId => {
+        return {
+          id: courseId,
+        }
+      });
+
+    return await context.prisma.student.create({
+      data: {
+        email: args.email,
+        password: args.password,
+        firstName: args.firstName,
+        lastName: args.lastName,
+        school: {
+          connect: {
+            id: args.schoolid,
+          }
+        },
+        coursesEnrolled: {
+          connect: courseIds
+        }
+      }
+    })
+  },
+  deleteStudent: async (_, args, context, info) =>
+    await context.prisma.student.delete({
+      where: {
+        id: args.id,
+      }
+    }),
+  updateStudent: async (_, args, context, info) => {
+    let courseIds = [];
+    if (args.coursesEnrolled)
+      courseIds = await args.coursesEnrolled.map(courseId => {
+        return {
+          id: courseId,
+        }
+      });
+
+    const student = await context.prisma.student.findOne({
+      where: {
+        id: args.id,
+      }
+    });
+
+    if (!student) throw new Error(`Student with id ${args.id} is invalid.`);
+
+    return await context.prisma.student.update({
+      where: {
+        id: args.id,
+      },
+      data: {
+        email: args.email === student.email ? student.email : args.email,
+        password: args.password === student.password ? student.password : args.password,
+        firstName: args.firstName === student.firstName ? student.firstName : args.firstName,
+        lastName: args.lastName === student.lastName ? student.lastName : args.lastName,
+        school: args.school === student.school ? student.school : args.school,
+        coursesEnrolled: {
+          connect: courseIds,
+        }
+      }
+    })
   }
 }
 
