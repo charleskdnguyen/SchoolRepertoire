@@ -1,5 +1,5 @@
 const Mutation = {
-  addSchool: async (_, args, context, info) => {
+  addSchool: async (parent, args, context, info) => {
     const newSchool = await context.prisma.school.create({
       data: {
         name: args.name,
@@ -31,6 +31,48 @@ const Mutation = {
       data: {
         name: args.name,
         rating: args.rating,
+      }
+    })
+  },
+  addAddress: async (_, args, context) => {
+    const address = await context.prisma.address.create({
+      data: {
+        number: args.number,
+        street: args.street,
+        zip: args.zip,
+        school: {
+          connect: {
+            id: args.schoolid,
+          }
+        }
+      }
+    });
+
+    return address;
+  },
+  deleteAddress: async (_, args, context, info) =>
+    await context.prisma.address.delete({
+      where: {
+        id: args.id,
+      }
+    }),
+  updateAddress: async (_, args, context, info) => {
+    const address = await context.prisma.address({
+      where: {
+        id: args.id,
+      }
+    })
+
+    if (!address) throw new Error(`Address with id ${args.id} is invalid.`);
+
+    return await context.prisma.address.update({
+      where: {
+        id: args.id,
+      },
+      data: {
+        number: args.number === number ? number : args.number,
+        street: args.street === street ? street : args.street,
+        zip: args.zip === zip ? zip : args.zip
       }
     })
   }

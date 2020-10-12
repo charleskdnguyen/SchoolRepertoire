@@ -2,16 +2,6 @@ const { gql } = require('apollo-server-express')
 
 const Mutation = gql`
   type Mutation {
-    addAddress(
-      number: Int!
-      street: String!
-      zip: String!
-      """
-      Adding int manually to school until front-end available
-      """
-      schoolId: Int!
-    ): Address
-
     addSchool(
       name: String!
       rating: Int
@@ -26,6 +16,23 @@ const Mutation = gql`
     deleteSchool(
       id: Int!
     ): School!
+    
+    addAddress(
+      number: Int!
+      street: String!
+      zip: String!
+      schoolid: Int!
+    ): Address!
+    
+    deleteAddress(
+      id: Int!
+    ): Address!
+    
+    updateAddress(
+      number: Int!
+      street: String!
+      zip: String!
+    ): Address!
   }
 `
 
