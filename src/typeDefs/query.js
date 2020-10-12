@@ -13,6 +13,12 @@ const Query = gql`
     ): Address!
     
     getAddresses: [Address!]
+    
+    getCourse(
+      id: Int!
+    ): Course!
+    
+    getCourses: [Course!]
   }
 `
 

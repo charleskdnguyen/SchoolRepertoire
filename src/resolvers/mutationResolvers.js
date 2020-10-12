@@ -64,22 +64,59 @@ const Mutation = {
       }
     }),
   updateAddress: async (_, args, context, info) => {
-    const address = await context.prisma.address({
+    const address = await context.prisma.address.findOne({
       where: {
         id: args.id,
       }
     })
 
     if (!address) throw new Error(`Address with id ${args.id} is invalid.`);
-
     return await context.prisma.address.update({
       where: {
         id: args.id,
       },
       data: {
-        number: args.number === number ? number : args.number,
-        street: args.street === street ? street : args.street,
-        zip: args.zip === zip ? zip : args.zip
+        number: args.number,
+        street: args.street,
+        zip: args.zip
+      }
+    });
+  },
+  addCourse: async (_, args, context, info) =>
+    await context.prisma.course.create({
+      data: {
+        courseCode: args.courseCode,
+        name: args.name,
+        school: {
+          connect: {
+            id: args.schoolid,
+          }
+        },
+        teacherAssigned: args.teacherAssigned ? args.teacherAssigned : undefined,
+        studentsAttending: [],
+      }
+    }),
+  deleteCourse: async (_, args, context, info) =>
+    await context.prisma.course.delete({
+      where: {
+        id: args.id,
+      }
+    }),
+  updateCourse: async (_, args, context, info) => {
+    const foundCourse = await context.prisma.course.findOne({
+      where: {
+        id: args.id,
+      }
+    });
+    if (!foundCourse) throw new Error(`Course with id ${args.id} is invalid.`);
+
+    return await context.prisma.course.update({
+      where: {
+        id: args.id,
+      },
+      data: {
+        courseCode: args.courseCode,
+        name: args.name,
       }
     })
   }

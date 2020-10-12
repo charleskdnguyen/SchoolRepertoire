@@ -18,6 +18,16 @@ const Query = {
 
   getAddresses: async (_, args, context, info) =>
     await context.prisma.address.findMany() || [],
+
+  getCourse : async (_, args, context, info) =>
+    await context.prisma.course.findOne({
+      where: {
+        id: args.id,
+      }
+    }),
+
+  getCourses: async (_, args, context, info) =>
+    await context.prisma.course.findMany() || [],
 }
 
 

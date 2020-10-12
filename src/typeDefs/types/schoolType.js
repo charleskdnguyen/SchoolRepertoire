@@ -8,7 +8,7 @@ const schoolType = gql`
     address: Address!
     studentsEnrolled: [Student!]
     teachersHired: [Teacher!]
-    courses: [Class!]
+    courses: [Course!]
   }
 `
 

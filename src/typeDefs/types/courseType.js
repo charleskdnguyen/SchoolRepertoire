@@ -1,16 +1,16 @@
 const { gql } = require('apollo-server-express');
 
-const classType = gql`
-  type Class {
+const courseType = gql`
+  type Course {
     id: ID!
-    course_code: String!
+    courseCode: String!
     name: String!
     school: School!
-    teacherAssigned: Teacher!
+    teacherAssigned: Teacher
     studentsAttending: [Student!]
   }
 `
 
 module.exports = {
-  classType,
+  courseType,
 }

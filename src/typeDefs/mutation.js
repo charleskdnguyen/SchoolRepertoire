@@ -32,10 +32,28 @@ const Mutation = gql`
     ): Address!
     
     updateAddress(
-      number: Int!
-      street: String!
-      zip: String!
+      id: Int!
+      number: Int
+      street: String
+      zip: String
     ): Address!
+    
+    addCourse(
+      courseCode: String!
+      name: String!
+      schoolid: Int!
+      teacherid: Int
+    ): Course!
+    
+    deleteCourse(
+      id: Int!
+    ): Course!
+    
+    updateCourse(
+      id: Int!
+      courseCode: String
+      name: String
+    ): Course!
   }
 `
 
