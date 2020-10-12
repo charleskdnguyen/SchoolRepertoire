@@ -92,7 +92,9 @@ const Mutation = {
           connect: {
             id: args.schoolid,
           }
-        }
+        },
+        teacherAssigned: args.teacherAssigned ? args.teacherAssigned : undefined,
+        studentsAttending: [],
       }
     }),
   deleteClass: async (_, args, context, info) =>

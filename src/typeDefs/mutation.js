@@ -41,6 +41,7 @@ const Mutation = gql`
       courseCode: String!
       name: String!
       schoolid: Int!
+      teacherid: Int
     ): Class!
     
     deleteClass(
