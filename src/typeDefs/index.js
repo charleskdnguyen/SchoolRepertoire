@@ -3,7 +3,7 @@ const { Mutation } = require('./mutation')
 const { schoolType } = require('./types')
 const { addressType } = require('./types')
 const { studentType } = require('./types')
-const { classType } = require('./types')
+const { courseType } = require('./types')
 const { teacherType } = require('./types')
 
 const typeDefs = [
@@ -12,7 +12,7 @@ const typeDefs = [
   schoolType,
   addressType,
   studentType,
-  classType,
+  courseType,
   teacherType,
 ]
 

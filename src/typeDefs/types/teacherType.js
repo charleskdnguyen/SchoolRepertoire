@@ -8,7 +8,7 @@ const teacherType = gql`
     firstName: String!
     lastName: String!
     school: School!
-    classesTeaching: [Class!]
+    coursesTeaching: [Course!]
   }
 `
 

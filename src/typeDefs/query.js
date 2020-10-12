@@ -14,11 +14,11 @@ const Query = gql`
     
     getAddresses: [Address!]
     
-    getClass(
+    getCourse(
       id: Int!
-    ): Class!
+    ): Course!
     
-    getClasses: [Class!]
+    getCourses: [Course!]
   }
 `
 
