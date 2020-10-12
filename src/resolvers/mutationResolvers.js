@@ -120,8 +120,16 @@ const Mutation = {
       }
     })
   },
-  addStudent: async (_, args, context, info) =>
-    await context.prisma.student.create({
+  addStudent: async (_, args, context, info) => {
+    let courseIds = [];
+    if (args.coursesEnrolled)
+      courseIds = await args.coursesEnrolled.map(courseId => {
+        return {
+          id: courseId,
+        }
+      });
+
+    return await context.prisma.student.create({
       data: {
         email: args.email,
         password: args.password,
@@ -132,9 +140,12 @@ const Mutation = {
             id: args.schoolid,
           }
         },
-        classesEnrolled: args.classesEnrolled ? args.classesEnrolled : [],
+        coursesEnrolled: {
+          connect: courseIds
+        }
       }
-    }),
+    })
+  },
   deleteStudent: async (_, args, context, info) =>
     await context.prisma.student.delete({
       where: {
@@ -142,6 +153,14 @@ const Mutation = {
       }
     }),
   updateStudent: async (_, args, context, info) => {
+    let courseIds = [];
+    if (args.coursesEnrolled)
+      courseIds = await args.coursesEnrolled.map(courseId => {
+        return {
+          id: courseId,
+        }
+      });
+
     const student = await context.prisma.student.findOne({
       where: {
         id: args.id,
@@ -155,12 +174,14 @@ const Mutation = {
         id: args.id,
       },
       data: {
-        email: args.email === email ? email : args.email,
-        password: args.password === password ? password : args.password,
-        firstName: args.firstName === firstName ? firstName : args.firstName,
-        lastName: args.lastName === lastName ? lastName : args.lastName,
-        school: args.school === school ? school : args.school,
-        classesEnrolled: args.classesEnrolled === classesEnrolled ? classesEnrolled : args.classesEnrolled,
+        email: args.email === student.email ? student.email : args.email,
+        password: args.password === student.password ? student.password : args.password,
+        firstName: args.firstName === student.firstName ? student.firstName : args.firstName,
+        lastName: args.lastName === student.lastName ? student.lastName : args.lastName,
+        school: args.school === student.school ? student.school : args.school,
+        coursesEnrolled: {
+          connect: courseIds,
+        }
       }
     })
   }

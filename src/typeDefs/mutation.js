@@ -44,7 +44,7 @@ const Mutation = gql`
       firstName: String!
       lastName: String!
       schoolid: Int!
-      classesEnrolled: [String!]
+      coursesEnrolled: [Int!]
     ): Student!
     
     deleteStudent(
@@ -58,8 +58,9 @@ const Mutation = gql`
       firstName: String
       lastName: String
       schoolid: Int
-      classesEnrolled: [String!]
+      coursesEnrolled: [Int!]
     ): Student!
+    
     addCourse(
       courseCode: String!
       name: String!
