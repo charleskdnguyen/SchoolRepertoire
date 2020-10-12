@@ -2,6 +2,11 @@ const { gql } = require('apollo-server-express')
 
 const Mutation = gql`
   type Mutation {
+    studentLogin(
+      email: String!
+      password: String!
+    ): Boolean!
+    
     addSchool(
       name: String!
       rating: Int
