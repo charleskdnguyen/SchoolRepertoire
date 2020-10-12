@@ -1,9 +1,9 @@
-const addressResolvers = {
+const schoolResolvers = {
   Query: {
     goodbye: () => `Goodbye!`,
   },
 };
 
 module.exports = {
-  addressResolvers,
+  schoolResolvers,
 }

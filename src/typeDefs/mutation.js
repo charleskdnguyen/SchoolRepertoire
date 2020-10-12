@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express')
 
-const mutation = gql`
+const Mutation = gql`
   type Mutation {
     addAddress(
       number: Int!
@@ -16,9 +16,19 @@ const mutation = gql`
       name: String!
       rating: Int
     ): School!
+    
+    updateSchool(
+      id: Int!
+      name: String
+      rating: Int
+    ): School!
+    
+    deleteSchool(
+      id: Int!
+    ): School!
   }
 `
 
 module.exports = {
-  mutation
+  Mutation
 }

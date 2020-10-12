@@ -1,12 +1,15 @@
 const { gql } = require('apollo-server-express');
 
-const query = gql`
+const Query = gql`
   type Query {
-    hello: String!
-    goodbye: String!
+    getSchool(
+      id: Int!
+    ): School
+    
+    getSchools: [School!]
   }
 `
 
 module.exports = {
-  query,
+  Query,
 }
