@@ -1,5 +1,22 @@
+const bcrypt = require('bcryptjs');
+
 const Mutation = {
-  addSchool: async (parent, args, context, info) => {
+  studentLogin: async (_, args, context, info) => {
+    const user = await context.prisma.student.findOne({
+      where: {
+        email: args.email,
+      }
+    });
+
+    if (!user) throw new Error(`Email is invalid.`);
+
+    const validPassword = await bcrypt.compare(args.password, user.password);
+
+    if (!validPassword) throw new Error(`Password is invalid.`);
+
+    return true;
+  },
+  addSchool: async (_, args, context, info) => {
     const newSchool = await context.prisma.school.create({
       data: {
         name: args.name,
@@ -121,6 +138,8 @@ const Mutation = {
     });
   },
   addStudent: async (_, args, context, info) => {
+    const hashedPassword = await bcrypt.hash(args.password, 10);
+
     let courseIds = [];
     if (args.coursesEnrolled)
       courseIds = await args.coursesEnrolled.map(courseId => {
@@ -132,7 +151,7 @@ const Mutation = {
     return await context.prisma.student.create({
       data: {
         email: args.email,
-        password: args.password,
+        password: hashedPassword,
         firstName: args.firstName,
         lastName: args.lastName,
         school: {
