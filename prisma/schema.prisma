@@ -18,7 +18,7 @@ model Student {
   lastName String
   school School? @relation(fields: [schoolId], references: [id])
   schoolId Int?
-  classesEnrolled Class[]
+  coursesEnrolled Course[]
 }
 
 model Teacher {
@@ -29,12 +29,12 @@ model Teacher {
   lastName String
   school School @relation(fields: [schoolId], references: [id])
   schoolId Int
-  classesTeaching Class[]
+  coursesTeaching Course[]
 }
 
-model Class {
+model Course {
   id Int @id @default(autoincrement())
-  course_code String @unique
+  courseCode String @unique
   name String
   school School? @relation(fields: [schoolId], references: [id])
   schoolId Int?
@@ -50,7 +50,7 @@ model School {
   address Address
   studentsEnrolled Student[]
   teachersHired Teacher[]
-  courses Class[]
+  courses Course[]
 }
 
 model Address {

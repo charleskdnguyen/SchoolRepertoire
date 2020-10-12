@@ -8,7 +8,7 @@ const studentType = gql`
     firstName: String!
     lastName: String!
     school: School!
-    classesEnrolled: [Class!]
+    coursesEnrolled: [Course!]
   }
 `
 

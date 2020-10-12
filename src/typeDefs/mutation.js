@@ -60,6 +60,22 @@ const Mutation = gql`
       schoolid: Int
       classesEnrolled: [String!]
     ): Student!
+    addCourse(
+      courseCode: String!
+      name: String!
+      schoolid: Int!
+      teacherid: Int
+    ): Course!
+    
+    deleteCourse(
+      id: Int!
+    ): Course!
+    
+    updateCourse(
+      id: Int!
+      courseCode: String
+      name: String
+    ): Course!
   }
 `
 
