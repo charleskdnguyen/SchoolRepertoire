@@ -77,6 +77,29 @@ const Mutation = gql`
       courseCode: String
       name: String
     ): Course!
+    
+    addTeacher(
+      email: String!
+      password: String!
+      firstName: String!
+      lastName: String!
+      schoolid: Int!
+      coursesTeaching: [Int!]!
+    ): Teacher!
+    
+    deleteTeacher(
+      id: Int!
+    ): Teacher
+    
+    updateTeacher(
+      id: Int!
+      email: String
+      password: String
+      firstName: String
+      lastName: String
+      schoolid: Int
+      coursesTeaching: [Int!]!
+    ): Teacher!
   }
 `
 

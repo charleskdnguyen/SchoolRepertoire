@@ -7,7 +7,7 @@ const Query = {
     }),
 
   getSchools: async (_, args, context, info) =>
-    (await context.prisma.school.findMany()) || [],
+    await context.prisma.school.findMany() || [],
 
   getAddress: async (_, args, context) =>
     await context.prisma.address.findOne({
@@ -27,7 +27,7 @@ const Query = {
     }),
   getStudents: async (_, args, context, info) =>
     (await context.prisma.student.findMany()) || [],
-    
+
   getCourse: async (_, args, context, info) =>
     await context.prisma.course.findOne({
       where: {
@@ -36,7 +36,17 @@ const Query = {
     }),
 
   getCourses: async (_, args, context, info) =>
-    (await context.prisma.course.findMany()) || [],
+    await context.prisma.course.findMany() || [],
+
+  getTeacher: async (_, args, context, info) =>
+    await context.prisma.teacher.findOne({
+      where: {
+        id: args.id,
+      }
+    }),
+
+  getTeachers: async (_, args, context, info) =>
+    await context.prisma.teacher.findMany() || [],
 };
 
 module.exports = {
