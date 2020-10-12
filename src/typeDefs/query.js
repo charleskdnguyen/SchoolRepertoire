@@ -7,6 +7,12 @@ const Query = gql`
     ): School
     
     getSchools: [School!]
+    
+    getAddress(
+      id: Int!
+    ): Address!
+    
+    getAddresses: [Address!]
   }
 `
 
