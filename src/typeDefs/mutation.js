@@ -5,6 +5,9 @@ const Mutation = gql`
     addSchool(
       name: String!
       rating: Int
+      number: Int
+      street: String
+      zip: String
     ): School!
     
     updateSchool(

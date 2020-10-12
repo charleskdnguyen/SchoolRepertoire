@@ -4,6 +4,13 @@ const Mutation = {
       data: {
         name: args.name,
         rating: args.rating,
+        address: {
+          create: {
+            number: args.number,
+            street: args.street,
+            zip: args.zip,
+          }
+        }
       }
     });
 
